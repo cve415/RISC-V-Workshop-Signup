@@ -7,29 +7,35 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Cpu, Users, BookOpen, Code, Zap } from "lucide-react"
+import { Cpu, Users, BookOpen, Code, Zap, CheckCircle, AlertCircle } from "lucide-react"
 import { submitRegistration } from "./actions"
+import Link from "next/link"
 
 export default function RISCVWorkshop() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState("")
+  const [isSuccess, setIsSuccess] = useState(false)
 
   async function handleSubmit(formData: FormData) {
     setIsSubmitting(true)
     setSubmitMessage("")
+    setIsSuccess(false)
 
     try {
       const result = await submitRegistration(formData)
       if (result.success) {
-        setSubmitMessage("Registration successful! We'll be in touch soon.")
+        setSubmitMessage("Registration successful! Your information has been saved.")
+        setIsSuccess(true)
         // Reset form
         const form = document.getElementById("registration-form") as HTMLFormElement
         form?.reset()
       } else {
-        setSubmitMessage("Registration failed. Please try again.")
+        setSubmitMessage(`Registration failed: ${result.error}`)
+        setIsSuccess(false)
       }
     } catch (error) {
       setSubmitMessage("An error occurred. Please try again.")
+      setIsSuccess(false)
     } finally {
       setIsSubmitting(false)
     }
@@ -77,6 +83,11 @@ export default function RISCVWorkshop() {
             <Badge variant="secondary" className="ml-auto">
               Free Event
             </Badge>
+            <Link href="/test-sheets">
+              <Button variant="outline" size="sm">
+                Test Sheets
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -113,7 +124,7 @@ export default function RISCVWorkshop() {
               {/* Hero Image */}
               <div className="lg:hidden">
                 <img
-                  src="/risc-v-hero.png"
+                  src="/placeholder.svg?height=256&width=400&text=RISC-V+Processor+Architecture"
                   alt="RISC-V Architecture Diagram"
                   className="w-full h-64 object-cover rounded-lg shadow-lg"
                 />
@@ -123,63 +134,99 @@ export default function RISCVWorkshop() {
             {/* Registration Form */}
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur">
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl text-gray-900">Register Now</CardTitle>
-                <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
+                <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
+                  {isSuccess ? <CheckCircle className="h-6 w-6 text-green-600" /> : <Cpu className="h-6 w-6" />}
+                  {isSuccess ? "Registration Complete!" : "Register Now"}
+                </CardTitle>
+                <CardDescription>
+                  {isSuccess
+                    ? "Your registration has been saved to our system"
+                    : "Secure your spot in this exclusive RISC-V workshop"}
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <form id="registration-form" action={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" name="firstName" required />
+                {!isSuccess ? (
+                  <form id="registration-form" action={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input id="firstName" name="firstName" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input id="lastName" name="lastName" required />
+                      </div>
                     </div>
+
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" name="lastName" required />
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input id="email" name="email" type="email" required />
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" name="email" type="email" required />
-                  </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="organization">Organization/University</Label>
+                      <Input id="organization" name="organization" />
+                    </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="organization">Organization/University</Label>
-                    <Input id="organization" name="organization" />
-                  </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="experience">Experience Level</Label>
+                      <select
+                        id="experience"
+                        name="experience"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      >
+                        <option value="">Select your level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                      </select>
+                    </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="experience">Experience Level</Label>
-                    <select
-                      id="experience"
-                      name="experience"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
+                    <Button
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
+                      disabled={isSubmitting}
                     >
-                      <option value="">Select your level</option>
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="advanced">Advanced</option>
-                    </select>
-                  </div>
+                      {isSubmitting ? "Registering..." : "Register for Workshop"}
+                    </Button>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Registering..." : "Register for Workshop"}
-                  </Button>
-
-                  {submitMessage && (
-                    <p
-                      className={`text-sm text-center ${submitMessage.includes("successful") ? "text-green-600" : "text-red-600"}`}
+                    {submitMessage && (
+                      <div
+                        className={`p-3 rounded-lg text-sm text-center ${
+                          isSuccess
+                            ? "bg-green-50 text-green-700 border border-green-200"
+                            : "bg-red-50 text-red-700 border border-red-200"
+                        }`}
+                      >
+                        <div className="flex items-center justify-center gap-2">
+                          {isSuccess ? <CheckCircle className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
+                          {submitMessage}
+                        </div>
+                      </div>
+                    )}
+                  </form>
+                ) : (
+                  <div className="text-center space-y-4">
+                    <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                      <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
+                      <h3 className="font-semibold text-green-800 mb-2">You're all set!</h3>
+                      <p className="text-green-700 text-sm">
+                        Your registration has been successfully saved. We'll be in touch with more details soon!
+                      </p>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setIsSuccess(false)
+                        setSubmitMessage("")
+                      }}
+                      variant="outline"
+                      className="w-full"
                     >
-                      {submitMessage}
-                    </p>
-                  )}
-                </form>
+                      Register Another Participant
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -187,7 +234,7 @@ export default function RISCVWorkshop() {
           {/* Hero Image - Desktop */}
           <div className="hidden lg:block mt-12">
             <img
-              src="/risc-v-hero.png"
+              src="/placeholder.svg?height=320&width=1200&text=RISC-V+Architecture+Workshop"
               alt="RISC-V Architecture Diagram"
               className="w-full h-80 object-cover rounded-xl shadow-2xl"
             />

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISC-V Workshop Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the iframe container */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2563eb, #16a34a);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 2084px;
+            border: none;
+            display: block;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            iframe {
+                height: 2200px; /* Slightly taller on mobile for better scrolling */
+            }
+        }
+        
+        /* Loading animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-start justify-center min-h-screen p-4">
+    <div class="form-container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🎯 RISC-V Workshop Registration</h1>
+            <p>Secure your spot in this exclusive learning experience</p>
+        </div>
+        
+        <!-- Google Forms embed code -->
+        <div class="relative">
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSdsXz-d54ULv54d0GBzSv2zg_SCp7I-wPGTgZe24O8TVGvb8A/viewform?embedded=true"
+                width="100%"
+                height="2084"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                class="rounded-b-xl"
+                title="RISC-V Workshop Registration Form"
+                onload="hideLoading()"
+            >
+                <div class="loading-message">
+                    <div class="loading-spinner"></div>
+                    Loading registration form...
+                </div>
+            </iframe>
+        </div>
+    </div>
+    
+    <script>
+        function hideLoading() {
+            // Optional: Add any JavaScript functionality here
+            console.log('Form loaded successfully');
+        }
+        
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll to form if coming from a link
+            if (window.location.hash === '#register') {
+                document.querySelector('.form-container').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

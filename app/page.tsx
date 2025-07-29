@@ -1,19 +1,9 @@
 "use client"
 
-import { TabsContent } from "@/components/ui/tabs"
-
-import { TabsTrigger } from "@/components/ui/tabs"
-
-import { TabsList } from "@/components/ui/tabs"
-
-import { Tabs } from "@/components/ui/tabs"
-
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Cpu, Users, BookOpen, Code, Zap } from "lucide-react"
-import Link from "next/link"
+import { Cpu, Users, BookOpen, Code, Zap, Phone } from "lucide-react"
 
 export default function RISCVWorkshop() {
   const workshopContent = {
@@ -25,15 +15,8 @@ export default function RISCVWorkshop() {
         "Processor Design Principles",
         "Assembly Programming",
         "Hardware Implementation",
-      ],
-    },
-    schedule: {
-      title: "Schedule",
-      sessions: [
-        { time: "9:00 AM - 10:30 AM", topic: "RISC-V Architecture Fundamentals", speaker: "Dr. Sarah Chen" },
-        { time: "10:45 AM - 12:15 PM", topic: "Assembly Programming Workshop", speaker: "Prof. Michael Rodriguez" },
-        { time: "1:15 PM - 2:45 PM", topic: "Hardware Implementation", speaker: "Dr. Emily Watson" },
-        { time: "3:00 PM - 4:30 PM", topic: "Advanced Topics & Q&A", speaker: "Panel Discussion" },
+        "Performance Optimization",
+        "Debugging Techniques",
       ],
     },
     prerequisites: {
@@ -43,6 +26,19 @@ export default function RISCVWorkshop() {
         "Familiarity with assembly language concepts",
         "Programming experience (any language)",
         "Laptop with development environment",
+        "Basic knowledge of digital logic",
+        "Understanding of CPU instruction cycles",
+      ],
+    },
+    materials: {
+      title: "What You'll Get",
+      items: [
+        "Comprehensive workshop materials and slides",
+        "Hands-on lab exercises and solutions",
+        "RISC-V development tools and simulators",
+        "Reference guides and documentation",
+        "Access to online resources and community",
+        "Certificate of completion",
       ],
     },
   }
@@ -58,89 +54,76 @@ export default function RISCVWorkshop() {
             <Badge variant="secondary" className="ml-auto">
               Free Event
             </Badge>
-            <Link href="/test-sheets">
-              <Button variant="outline" size="sm">
-                Test Sheets
-              </Button>
-            </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section with Registration */}
-      <section className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Hero Content */}
+      {/* Registration Form Section - Moved to Top */}
+      <section className="py-8 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <Card className="shadow-xl border-0 bg-white backdrop-blur">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
+                <Cpu className="h-6 w-6" />
+                Register Now
+              </CardTitle>
+              <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="w-full overflow-hidden rounded-lg">
+                <iframe
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSdsXz-d54ULv54d0GBzSv2zg_SCp7I-wPGTgZe24O8TVGvb8A/viewform?embedded=true"
+                  width="100%"
+                  height="2084"
+                  frameBorder="0"
+                  marginHeight="0"
+                  marginWidth="0"
+                  className="w-full"
+                  title="RISC-V Workshop Registration Form"
+                >
+                  Loading registration form...
+                </iframe>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Hero Section - Simplified */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="space-y-8">
             <div className="space-y-6">
-              <div className="space-y-4">
-                <h2 className="text-4xl font-bold text-gray-900 leading-tight">Master RISC-V Architecture</h2>
-                <p className="text-xl text-gray-600">
-                  Join our comprehensive workshop to learn the fundamentals of RISC-V processor design, assembly
-                  programming, and hardware implementation.
-                </p>
-              </div>
+              <h2 className="text-5xl font-bold text-gray-900 leading-tight">Master RISC-V Architecture</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Join our comprehensive workshop to learn the fundamentals of RISC-V processor design, assembly
+                programming, and hardware implementation.
+              </p>
+            </div>
 
-              <div className="flex items-center gap-6 text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  <span>50+ Attendees</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4" />
-                  <span>4 Sessions</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="h-4 w-4" />
-                  <span>Hands-on Labs</span>
-                </div>
+            <div className="flex items-center justify-center gap-8 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                <span>50+ Attendees</span>
               </div>
-
-              {/* Hero Image */}
-              <div className="lg:hidden">
-                <img
-                  src="/placeholder.svg?height=256&width=400&text=RISC-V+Processor+Architecture"
-                  alt="RISC-V Architecture Diagram"
-                  className="w-full h-64 object-cover rounded-lg shadow-lg"
-                />
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                <span>Hands-on Labs</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Zap className="h-5 w-5" />
+                <span>Expert Instructors</span>
               </div>
             </div>
 
-            {/* Replace the entire registration Card with this Google Form embed */}
-            <Card className="shadow-xl border-0 bg-white/80 backdrop-blur">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
-                  <Cpu className="h-6 w-6" />
-                  Register Now
-                </CardTitle>
-                <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="w-full overflow-hidden rounded-lg">
-                  <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSdsXz-d54ULv54d0GBzSv2zg_SCp7I-wPGTgZe24O8TVGvb8A/viewform?embedded=true"
-                    width="100%"
-                    height="2182"
-                    frameBorder="0"
-                    marginHeight="0"
-                    marginWidth="0"
-                    className="w-full"
-                    title="RISC-V Workshop Registration Form"
-                  >
-                    Loading registration form...
-                  </iframe>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Hero Image - Desktop */}
-          <div className="hidden lg:block mt-12">
-            <img
-              src="/placeholder.svg?height=320&width=1200&text=RISC-V+Architecture+Workshop"
-              alt="RISC-V Architecture Diagram"
-              className="w-full h-80 object-cover rounded-xl shadow-2xl"
-            />
+            {/* Hero Image */}
+            <div className="mt-12">
+              <img
+                src="/placeholder.svg?height=400&width=800&text=RISC-V+Architecture+Workshop"
+                alt="RISC-V Architecture Diagram"
+                className="w-full max-w-4xl mx-auto h-96 object-cover rounded-xl shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -159,13 +142,13 @@ export default function RISCVWorkshop() {
                 <BookOpen className="h-4 w-4" />
                 Overview
               </TabsTrigger>
-              <TabsTrigger value="schedule" className="flex items-center gap-2">
-                <Zap className="h-4 w-4" />
-                Schedule
-              </TabsTrigger>
               <TabsTrigger value="prerequisites" className="flex items-center gap-2">
                 <Code className="h-4 w-4" />
                 Prerequisites
+              </TabsTrigger>
+              <TabsTrigger value="materials" className="flex items-center gap-2">
+                <Zap className="h-4 w-4" />
+                Materials
               </TabsTrigger>
             </TabsList>
 
@@ -194,35 +177,11 @@ export default function RISCVWorkshop() {
                     <div className="bg-gradient-to-br from-blue-50 to-green-50 p-6 rounded-lg">
                       <h4 className="font-semibold mb-3">What You'll Learn:</h4>
                       <p className="text-gray-600">
-                        Gain hands-on experience with RISC-V architecture, learn to write efficient assembly code, and
-                        understand the principles behind modern processor design.
+                        Gain hands-on experience with RISC-V architecture, learn to write efficient assembly code,
+                        understand the principles behind modern processor design, and explore real-world applications of
+                        RISC-V in embedded systems and high-performance computing.
                       </p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="schedule">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-green-600" />
-                    {workshopContent.schedule.title}
-                  </CardTitle>
-                  <CardDescription>Full day workshop schedule</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {workshopContent.schedule.sessions.map((session, index) => (
-                      <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                        <div className="text-sm font-mono text-blue-600 min-w-[140px]">{session.time}</div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold">{session.topic}</h4>
-                          <p className="text-sm text-gray-600">{session.speaker}</p>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -254,7 +213,41 @@ export default function RISCVWorkshop() {
                       <h4 className="font-semibold mb-3">Don't Meet All Requirements?</h4>
                       <p className="text-gray-600">
                         Don't worry! We'll provide introductory materials and our instructors will help you get up to
-                        speed during the workshop.
+                        speed during the workshop. We encourage learners at all levels to participate.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="materials">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Zap className="h-5 w-5 text-green-600" />
+                    {workshopContent.materials.title}
+                  </CardTitle>
+                  <CardDescription>Resources and materials included with your registration</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold mb-3">Included Materials:</h4>
+                      <ul className="space-y-3">
+                        {workshopContent.materials.items.map((item, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg">
+                      <h4 className="font-semibold mb-3">Post-Workshop Support:</h4>
+                      <p className="text-gray-600">
+                        After the workshop, you'll have access to our online community, additional resources, and
+                        follow-up sessions to continue your RISC-V learning journey.
                       </p>
                     </div>
                   </div>
@@ -265,8 +258,42 @@ export default function RISCVWorkshop() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section className="py-12 px-4 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-2xl font-bold mb-8">Questions? Contact:</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-gray-800 border-gray-700">
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Phone className="h-5 w-5 text-blue-400" />
+                  <h4 className="text-lg font-semibold text-white">Paul Sherman</h4>
+                </div>
+                <p className="text-gray-300 mb-3">Workshop Coordinator</p>
+                <a href="tel:+14083830471" className="text-blue-400 hover:text-blue-300 font-mono text-lg">
+                  (408) 383-0471
+                </a>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gray-800 border-gray-700">
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Phone className="h-5 w-5 text-green-400" />
+                  <h4 className="text-lg font-semibold text-white">Christopher Velasco</h4>
+                </div>
+                <p className="text-gray-300 mb-3">Technical Support</p>
+                <a href="tel:+14156448565" className="text-green-400 hover:text-green-300 font-mono text-lg">
+                  (415) 644-8565
+                </a>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8 px-4">
+      <footer className="bg-gray-900 text-white py-8 px-4 border-t border-gray-800">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Cpu className="h-6 w-6" />

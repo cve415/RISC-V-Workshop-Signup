@@ -289,7 +289,7 @@ export async function testGoogleSheetsConnection() {
       sheetCount: doc.sheetCount,
       sheets,
       headers: firstSheet.headerValues,
-      spreadsheetId: SPREADSHEET_ID,
+      spreadsheetId: 2033412253,
       serviceAccountEmail: serviceEmail,
       keyValidation,
     }
@@ -301,8 +301,27 @@ export async function testGoogleSheetsConnection() {
       error: error instanceof Error ? error.message : "Connection failed",
       spreadsheetId: SPREADSHEET_ID,
       hasCredentials: {
-        email: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        key: !!process.env.GOOGLE_PRIVATE_KEY,
+        email: !!process.env."risc-v-peak@peak-academy-467021-f8-467400.iam.gserviceaccount.com",
+        key: !!process.env."-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDCuHpBfnrYLfCh
+k8QmxlifMqlt90NF3SGiT0igfLvjkXPmKE01kDtrd7TsjyNItSN/9BY0pGm8zZq+
+IUyIB4Cgd6whCvCasqyw5OzHvjIGdk+bOGSY2OKb7E1kONTJpVIjHwCDQ1+aana1
+uJHd7p4kljVXfJn7hn9LKjmXNu3350BRLaT9k/AcgLU+DddaCU9zGO+FDp974/H3
+/1WB0fSkDrONMfrfxH+0fLIuyVCAweYRIGoXx6ALWKkUsYcdVDmzn5+Dd5nxFVsb
+G3GW6oCaYnTKyKDuer3XbBVsP4Bap2fmoHYv7G1gLTRDw02dwymGjWjAf2gvIJGw
+pNk9OFMVAgMBAAECggEAJExxde4XBl+iAOzj3vqQoLS4AujaIJb1YyV2e3xlJioC
+OgB/TCHkAceh8YtJX49s27hrv0p675hAZXsdoioL314Pt2UrrxrpuFwki6O3/Z5m
+fqAHmLqtm7V0Q9+YQzLPWf64gL+5fbalBIEwp/eIgXeC4Bk5Nzs+VYu8iqTRvamJ
+4D1GRVNqF+pjXgQkrzOMusMb2CLmz9ePMxCFBI1QiDDWRX7S8kmqU0TRorFHSWB9
+xLL5KroxauBn3MjqDTvwQLBHKMH/071gZ83MWCCAxR2CS0PAsieizcOxwtTEE0H5
+UhchYoZ+/GZ9jGdgQ18tHOXnzuvbzRfBSUYa6FmvIQKBgQDsxStEvAUaJasTL5fQ
+wKYU1ZDDKhHhRR18xVE9ZnH60MSf6+CK7xIIEF5bVJ8WhiKTt9gFL+6jKNM/+N4A
+cGNPuYwXdh1FqW8f/bPCiDkXvsRe+rcQsM8DA30zBdaKgZFob0eMia4UpIIV6XxT
+zTPTb3uR4xcfiLLnzwM01YJT+QKBgQDSiQfVm/DfaGBYZK1/lSu+PpHng9qL6GXg
+ySjX5rBFeysYrFaP1Jr8TgjnqEuWGg8BcJbpw0urE89CZuO/iu6pYdo0EO7HaKtR
+3hj0ex1Dm+OqjUkyvoiRtPkZX5a6Cyp6rUDo8bPumeahUeWmS7MjIJ/f26IaUii3
+NTB8Du+G/QKBgQDD41ip9FjQSivgoraa6lg90neDUHIciz8bNHDDONfCKCkVGmTa
+7XJgo5I9Q6SfUPiYeDjMCd0ItkU",
       },
       rawError: error instanceof Error ? error.stack : "Unknown error",
     }

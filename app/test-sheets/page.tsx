@@ -156,14 +156,14 @@ export default function TestSheetsPage() {
                     <p className="mb-2">Add this email to your spreadsheet with Editor permissions:</p>
                     <div className="flex items-center gap-2">
                       <code className="text-xs bg-gray-100 px-2 py-1 rounded flex-1">
-                        risc-v-workshop@peak-academy-467021-f8.iam.gserviceaccount.com
+                        risc-v-workshop-service@generated-motif-421022.iam.gserviceaccount.com
                       </code>
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => {
                           navigator.clipboard.writeText(
-                            "risc-v-workshop@peak-academy-467021-f8.iam.gserviceaccount.com",
+                            "risc-v-workshop-service@generated-motif-421022.iam.gserviceaccount.com",
                           )
                           alert("Email copied to clipboard!")
                         }}

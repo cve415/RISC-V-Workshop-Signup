@@ -163,6 +163,9 @@ export async function testGoogleSheetsConnection() {
     const hasKey = !!privateKey
 
     console.log("Environment check:", { hasEmail, hasKey })
+    console.log("Service email:", serviceEmail)
+    console.log("Private key length:", privateKey?.length)
+    console.log("Private key starts with:", privateKey?.substring(0, 50))
 
     if (!hasEmail || !hasKey) {
       return {
@@ -171,6 +174,8 @@ export async function testGoogleSheetsConnection() {
         details: {
           hasEmail,
           hasKey,
+          serviceEmail: serviceEmail || "NOT SET",
+          privateKeyLength: privateKey?.length || 0,
           spreadsheetId: SPREADSHEET_ID,
         },
       }
@@ -184,9 +189,21 @@ export async function testGoogleSheetsConnection() {
       hasEndFooter: formattedKey.includes("-----END PRIVATE KEY-----"),
       hasNewlines: formattedKey.includes("\n"),
       length: formattedKey.length,
+      firstLine: formattedKey.split("\n")[0],
+      lastLine: formattedKey.split("\n").slice(-1)[0],
     }
 
     console.log("🔑 Private key validation:", keyValidation)
+
+    if (!keyValidation.hasBeginHeader || !keyValidation.hasEndFooter) {
+      return {
+        success: false,
+        error: "Invalid private key format - missing headers",
+        keyValidation,
+        spreadsheetId: SPREADSHEET_ID,
+        serviceAccountEmail: serviceEmail,
+      }
+    }
 
     const serviceAccountAuth = new JWT({
       email: serviceEmail,
@@ -198,13 +215,27 @@ export async function testGoogleSheetsConnection() {
 
     // Test authentication explicitly
     try {
-      await serviceAccountAuth.authorize()
-      console.log("✅ JWT authorization successful")
+      const authResult = await serviceAccountAuth.authorize()
+      console.log("✅ JWT authorization successful", authResult)
     } catch (authError) {
       console.error("❌ JWT authorization failed:", authError)
+
+      // More specific error handling
+      let errorMessage = "Authentication failed"
+      if (authError instanceof Error) {
+        if (authError.message.includes("invalid_grant")) {
+          errorMessage = "Invalid private key or service account email"
+        } else if (authError.message.includes("access_denied")) {
+          errorMessage = "Service account access denied"
+        } else {
+          errorMessage = authError.message
+        }
+      }
+
       return {
         success: false,
-        error: `Authentication failed: ${authError instanceof Error ? authError.message : "Unknown auth error"}`,
+        error: errorMessage,
+        authError: authError instanceof Error ? authError.message : "Unknown auth error",
         keyValidation,
         spreadsheetId: SPREADSHEET_ID,
         serviceAccountEmail: serviceEmail,
@@ -212,9 +243,33 @@ export async function testGoogleSheetsConnection() {
     }
 
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID, serviceAccountAuth)
-    await doc.loadInfo()
 
-    console.log("📊 Document loaded successfully")
+    try {
+      await doc.loadInfo()
+      console.log("📊 Document loaded successfully")
+    } catch (docError) {
+      console.error("❌ Document load failed:", docError)
+
+      let errorMessage = "Failed to load spreadsheet"
+      if (docError instanceof Error) {
+        if (docError.message.includes("not found")) {
+          errorMessage = "Spreadsheet not found - check the ID"
+        } else if (docError.message.includes("permission")) {
+          errorMessage = "No permission to access spreadsheet - check sharing"
+        } else {
+          errorMessage = docError.message
+        }
+      }
+
+      return {
+        success: false,
+        error: errorMessage,
+        docError: docError instanceof Error ? docError.message : "Unknown doc error",
+        keyValidation,
+        spreadsheetId: SPREADSHEET_ID,
+        serviceAccountEmail: serviceEmail,
+      }
+    }
 
     // Get detailed sheet information
     const sheets = doc.sheetsByIndex.map((sheet) => ({
@@ -249,6 +304,7 @@ export async function testGoogleSheetsConnection() {
         email: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
         key: !!process.env.GOOGLE_PRIVATE_KEY,
       },
+      rawError: error instanceof Error ? error.stack : "Unknown error",
     }
   }
 }

@@ -149,38 +149,81 @@ export default function RISCVWorkshop() {
                   <form id="registration-form" action={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
+                        <Label htmlFor="firstName">First Name *</Label>
                         <Input id="firstName" name="firstName" required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
+                        <Label htmlFor="lastName">Last Name *</Label>
                         <Input id="lastName" name="lastName" required />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
+                      <Label htmlFor="email">Email Address *</Label>
                       <Input id="email" name="email" type="email" required />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="organization">Organization/University</Label>
-                      <Input id="organization" name="organization" />
+                      <Label htmlFor="phone">Phone Number *</Label>
+                      <Input id="phone" name="phone" type="tel" required placeholder="(555) 123-4567" />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="organization">Organization/Company *</Label>
+                        <Input id="organization" name="organization" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="role">Role/Title</Label>
+                        <Input id="role" name="role" placeholder="e.g., Student, Engineer, Professor" />
+                      </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="experience">Experience Level</Label>
+                      <Label htmlFor="experience">Experience Level with Computer Architecture *</Label>
                       <select
                         id="experience"
                         name="experience"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
-                        <option value="">Select your level</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
+                        <option value="">Select your experience level</option>
+                        <option value="No prior experience">No prior experience</option>
+                        <option value="Basic understanding">Basic understanding</option>
+                        <option value="Some coursework/projects">Some coursework/projects</option>
+                        <option value="Professional experience">Professional experience</option>
+                        <option value="Expert level">Expert level</option>
                       </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="dietary">Dietary Restrictions/Allergies</Label>
+                      <Input
+                        id="dietary"
+                        name="dietary"
+                        placeholder="e.g., Vegetarian, Gluten-free, Nut allergy, None"
+                      />
+                      <p className="text-xs text-gray-500">Please specify any dietary restrictions or food allergies</p>
+                    </div>
+
+                    <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                      <h4 className="font-semibold text-orange-800 mb-3">Emergency Contact Information</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="emergencyName">Emergency Contact Name *</Label>
+                          <Input id="emergencyName" name="emergencyName" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="emergencyPhone">Emergency Contact Phone *</Label>
+                          <Input
+                            id="emergencyPhone"
+                            name="emergencyPhone"
+                            type="tel"
+                            required
+                            placeholder="(555) 123-4567"
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <Button

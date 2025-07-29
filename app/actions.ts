@@ -3,6 +3,7 @@
 import { GoogleSpreadsheet } from "google-spreadsheet"
 import { JWT } from "google-auth-library"
 
+// Replace this line with your actual spreadsheet ID
 const SPREADSHEET_ID = "1EbEdk_iJRDi8Bv9RAHsuM9S--wbAEpGLqvpkY2XYbZ8"
 
 // Helper function to properly format the private key

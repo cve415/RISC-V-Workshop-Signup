@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, XCircle, AlertCircle, RefreshCw } from "lucide-react"
+import { CheckCircle, XCircle, AlertCircle, RefreshCw, Copy } from "lucide-react"
 import { testGoogleSheetsConnection } from "../actions"
 
 export default function TestSheetsPage() {
@@ -141,36 +141,61 @@ export default function TestSheetsPage() {
               </div>
             )}
 
-            {/* Setup Instructions */}
-            <Card className="border-blue-200 bg-blue-50">
+            {/* Troubleshooting Steps */}
+            <Card className="border-orange-200 bg-orange-50">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-blue-600" />
-                  Setup Checklist
+                  <AlertCircle className="h-5 w-5 text-orange-600" />
+                  Troubleshooting Steps
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Google Sheets API enabled in Google Cloud Console</span>
+              <CardContent className="text-sm space-y-3">
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-orange-800">1. Share Spreadsheet with Service Account</h4>
+                  <div className="bg-white p-3 rounded border">
+                    <p className="mb-2">Add this email to your spreadsheet with Editor permissions:</p>
+                    <div className="flex items-center gap-2">
+                      <code className="text-xs bg-gray-100 px-2 py-1 rounded flex-1">
+                        risc-v-workshop@peak-academy-467021-f8.iam.gserviceaccount.com
+                      </code>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          navigator.clipboard.writeText(
+                            "risc-v-workshop@peak-academy-467021-f8.iam.gserviceaccount.com",
+                          )
+                          alert("Email copied to clipboard!")
+                        }}
+                      >
+                        <Copy className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Service account created with JSON key downloaded</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Service account email added to spreadsheet with Editor permissions</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Environment variables GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_PRIVATE_KEY set</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Spreadsheet has correct column headers</span>
-                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-orange-800">2. Check Environment Variables</h4>
+                  <ul className="list-disc list-inside space-y-1 text-orange-700">
+                    <li>GOOGLE_SERVICE_ACCOUNT_EMAIL is set</li>
+                    <li>GOOGLE_PRIVATE_KEY is set with proper formatting</li>
+                    <li>No extra quotes or spaces in the values</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-orange-800">3. Enable Google Sheets API</h4>
+                  <p className="text-orange-700">
+                    Make sure Google Sheets API is enabled in your Google Cloud Console for project:
+                    peak-academy-467021-f8
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-orange-800">4. Wait for Deployment</h4>
+                  <p className="text-orange-700">
+                    After updating environment variables, wait 1-2 minutes for your deployment to update
+                  </p>
                 </div>
               </CardContent>
             </Card>

@@ -1,46 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { TabsContent } from "@/components/ui/tabs"
+
+import { TabsTrigger } from "@/components/ui/tabs"
+
+import { TabsList } from "@/components/ui/tabs"
+
+import { Tabs } from "@/components/ui/tabs"
+
+import { Badge } from "@/components/ui/badge"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Cpu, Users, BookOpen, Code, Zap, CheckCircle, AlertCircle } from "lucide-react"
-import { submitRegistration } from "./actions"
+import { Cpu, Users, BookOpen, Code, Zap } from "lucide-react"
 import Link from "next/link"
 
 export default function RISCVWorkshop() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitMessage, setSubmitMessage] = useState("")
-  const [isSuccess, setIsSuccess] = useState(false)
-
-  async function handleSubmit(formData: FormData) {
-    setIsSubmitting(true)
-    setSubmitMessage("")
-    setIsSuccess(false)
-
-    try {
-      const result = await submitRegistration(formData)
-      if (result.success) {
-        setSubmitMessage("Registration successful! Your information has been saved.")
-        setIsSuccess(true)
-        // Reset form
-        const form = document.getElementById("registration-form") as HTMLFormElement
-        form?.reset()
-      } else {
-        setSubmitMessage(`Registration failed: ${result.error}`)
-        setIsSuccess(false)
-      }
-    } catch (error) {
-      setSubmitMessage("An error occurred. Please try again.")
-      setIsSuccess(false)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   const workshopContent = {
     overview: {
       title: "Workshop Overview",
@@ -131,145 +106,30 @@ export default function RISCVWorkshop() {
               </div>
             </div>
 
-            {/* Registration Form */}
+            {/* Replace the entire registration Card with this Google Form embed */}
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
-                  {isSuccess ? <CheckCircle className="h-6 w-6 text-green-600" /> : <Cpu className="h-6 w-6" />}
-                  {isSuccess ? "Registration Complete!" : "Register Now"}
+                  <Cpu className="h-6 w-6" />
+                  Register Now
                 </CardTitle>
-                <CardDescription>
-                  {isSuccess
-                    ? "Your registration has been saved to our system"
-                    : "Secure your spot in this exclusive RISC-V workshop"}
-                </CardDescription>
+                <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
               </CardHeader>
               <CardContent>
-                {!isSuccess ? (
-                  <form id="registration-form" action={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name *</Label>
-                        <Input id="firstName" name="firstName" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name *</Label>
-                        <Input id="lastName" name="lastName" required />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input id="email" name="email" type="email" required />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input id="phone" name="phone" type="tel" required placeholder="(555) 123-4567" />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="organization">Organization/Company *</Label>
-                        <Input id="organization" name="organization" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="role">Role/Title</Label>
-                        <Input id="role" name="role" placeholder="e.g., Student, Engineer, Professor" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="experience">Experience Level with Computer Architecture *</Label>
-                      <select
-                        id="experience"
-                        name="experience"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      >
-                        <option value="">Select your experience level</option>
-                        <option value="No prior experience">No prior experience</option>
-                        <option value="Basic understanding">Basic understanding</option>
-                        <option value="Some coursework/projects">Some coursework/projects</option>
-                        <option value="Professional experience">Professional experience</option>
-                        <option value="Expert level">Expert level</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="dietary">Dietary Restrictions/Allergies</Label>
-                      <Input
-                        id="dietary"
-                        name="dietary"
-                        placeholder="e.g., Vegetarian, Gluten-free, Nut allergy, None"
-                      />
-                      <p className="text-xs text-gray-500">Please specify any dietary restrictions or food allergies</p>
-                    </div>
-
-                    <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-                      <h4 className="font-semibold text-orange-800 mb-3">Emergency Contact Information</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="emergencyName">Emergency Contact Name *</Label>
-                          <Input id="emergencyName" name="emergencyName" required />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="emergencyPhone">Emergency Contact Phone *</Label>
-                          <Input
-                            id="emergencyPhone"
-                            name="emergencyPhone"
-                            type="tel"
-                            required
-                            placeholder="(555) 123-4567"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Registering..." : "Register for Workshop"}
-                    </Button>
-
-                    {submitMessage && (
-                      <div
-                        className={`p-3 rounded-lg text-sm text-center ${
-                          isSuccess
-                            ? "bg-green-50 text-green-700 border border-green-200"
-                            : "bg-red-50 text-red-700 border border-red-200"
-                        }`}
-                      >
-                        <div className="flex items-center justify-center gap-2">
-                          {isSuccess ? <CheckCircle className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
-                          {submitMessage}
-                        </div>
-                      </div>
-                    )}
-                  </form>
-                ) : (
-                  <div className="text-center space-y-4">
-                    <div className="bg-green-50 p-6 rounded-lg border border-green-200">
-                      <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
-                      <h3 className="font-semibold text-green-800 mb-2">You're all set!</h3>
-                      <p className="text-green-700 text-sm">
-                        Your registration has been successfully saved. We'll be in touch with more details soon!
-                      </p>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setIsSuccess(false)
-                        setSubmitMessage("")
-                      }}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      Register Another Participant
-                    </Button>
-                  </div>
-                )}
+                <div className="w-full overflow-hidden rounded-lg">
+                  <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSdsXz-d54ULv54d0GBzSv2zg_SCp7I-wPGTgZe24O8TVGvb8A/viewform?embedded=true"
+                    width="100%"
+                    height="2182"
+                    frameBorder="0"
+                    marginHeight="0"
+                    marginWidth="0"
+                    className="w-full"
+                    title="RISC-V Workshop Registration Form"
+                  >
+                    Loading registration form...
+                  </iframe>
+                </div>
               </CardContent>
             </Card>
           </div>

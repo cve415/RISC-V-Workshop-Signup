@@ -146,24 +146,23 @@ export default function TestSheetsPage() {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-orange-600" />
-                  Troubleshooting Steps
+                  Current Setup Information
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm space-y-3">
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-orange-800">1. Share Spreadsheet with Service Account</h4>
+                  <h4 className="font-semibold text-orange-800">Service Account Email</h4>
                   <div className="bg-white p-3 rounded border">
-                    <p className="mb-2">Add this email to your spreadsheet with Editor permissions:</p>
                     <div className="flex items-center gap-2">
                       <code className="text-xs bg-gray-100 px-2 py-1 rounded flex-1">
-                        risc-v-workshop-service@generated-motif-421022.iam.gserviceaccount.com
+                        risc-v-peak@peak-academy-467021-f8-467400.iam.gserviceaccount.com
                       </code>
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => {
                           navigator.clipboard.writeText(
-                            "risc-v-workshop-service@generated-motif-421022.iam.gserviceaccount.com",
+                            "risc-v-peak@peak-academy-467021-f8-467400.iam.gserviceaccount.com",
                           )
                           alert("Email copied to clipboard!")
                         }}
@@ -175,27 +174,12 @@ export default function TestSheetsPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-orange-800">2. Check Environment Variables</h4>
+                  <h4 className="font-semibold text-orange-800">Project Information</h4>
                   <ul className="list-disc list-inside space-y-1 text-orange-700">
-                    <li>GOOGLE_SERVICE_ACCOUNT_EMAIL is set</li>
-                    <li>GOOGLE_PRIVATE_KEY is set with proper formatting</li>
-                    <li>No extra quotes or spaces in the values</li>
+                    <li>Project ID: peak-academy-467021-f8-467400</li>
+                    <li>Spreadsheet ID: 1EbEdk_iJRDi8Bv9RAHsuM9S--wbAEpGLqvpkY2XYbZ8</li>
+                    <li>Make sure Google Sheets API is enabled in this project</li>
                   </ul>
-                </div>
-
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-orange-800">3. Enable Google Sheets API</h4>
-                  <p className="text-orange-700">
-                    Make sure Google Sheets API is enabled in your Google Cloud Console for project:
-                    peak-academy-467021-f8
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-orange-800">4. Wait for Deployment</h4>
-                  <p className="text-orange-700">
-                    After updating environment variables, wait 1-2 minutes for your deployment to update
-                  </p>
                 </div>
               </CardContent>
             </Card>

@@ -1,4 +1,5 @@
 "use client"
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -15,9 +16,321 @@ import {
   Wrench,
   Database,
   FileText,
+  Clock,
+  Target,
+  Lightbulb,
+  Cog,
 } from "lucide-react"
 
+type WorkshopSection = {
+  id: string
+  title: string
+  icon: any
+  content: {
+    title: string
+    description: string
+    topics: string[]
+    keyPoints?: string[]
+    duration?: string
+  }
+}
+
+const workshopSections: WorkshopSection[] = [
+  {
+    id: "overview",
+    title: "Overview",
+    icon: BookOpen,
+    content: {
+      title: "Workshop Overview",
+      description: "Introduction to the RISC-V Hands-On Workshop and what you'll learn throughout the sessions.",
+      topics: [
+        "Workshop objectives and learning outcomes",
+        "RISC-V ecosystem and community",
+        "Open-source hardware movement",
+        "Industry adoption and use cases",
+        "Prerequisites and setup requirements",
+      ],
+      keyPoints: [
+        "Understand the fundamentals of RISC-V architecture",
+        "Gain hands-on experience with RISC-V development",
+        "Learn about the open-source hardware ecosystem",
+        "Connect with the RISC-V community",
+      ],
+      duration: "30 minutes",
+    },
+  },
+  {
+    id: "abstractions",
+    title: "Famous Abstractions",
+    icon: Lightbulb,
+    content: {
+      title: "Famous Abstractions in Computer Architecture",
+      description: "Explore the key abstractions that make modern computing possible and how RISC-V implements them.",
+      topics: [
+        "Hardware/Software interface",
+        "Instruction Set Architecture (ISA)",
+        "Assembly language abstraction",
+        "Compiler abstractions",
+        "Operating system abstractions",
+        "Virtual memory concepts",
+      ],
+      keyPoints: [
+        "Understand layered abstractions in computing",
+        "Learn how abstractions enable modularity",
+        "See how RISC-V simplifies these abstractions",
+        "Appreciate the elegance of clean interfaces",
+      ],
+      duration: "45 minutes",
+    },
+  },
+  {
+    id: "fundamentals",
+    title: "RISC-V Fundamentals",
+    icon: Cpu,
+    content: {
+      title: "RISC-V Architecture Fundamentals",
+      description:
+        "Deep dive into the core principles and design philosophy of the RISC-V instruction set architecture.",
+      topics: [
+        "RISC vs CISC design philosophy",
+        "RISC-V design principles",
+        "Modular ISA extensions",
+        "Base integer instruction sets (RV32I, RV64I)",
+        "Register file organization",
+        "Memory model and addressing",
+      ],
+      keyPoints: [
+        "Master the RISC-V design philosophy",
+        "Understand the modular extension system",
+        "Learn about different base architectures",
+        "Grasp the clean, simple instruction format",
+      ],
+      duration: "60 minutes",
+    },
+  },
+  {
+    id: "instruction-set",
+    title: "Instruction Set",
+    icon: Code,
+    content: {
+      title: "RISC-V Instruction Set Architecture",
+      description: "Comprehensive coverage of RISC-V instructions, formats, and encoding schemes.",
+      topics: [
+        "Six instruction formats (R, I, S, B, U, J)",
+        "Arithmetic and logical operations",
+        "Load and store instructions",
+        "Branch and jump instructions",
+        "Immediate value handling",
+        "Instruction encoding and decoding",
+      ],
+      keyPoints: [
+        "Master all six instruction formats",
+        "Understand instruction encoding",
+        "Learn efficient instruction usage patterns",
+        "Practice instruction format recognition",
+      ],
+      duration: "90 minutes",
+    },
+  },
+  {
+    id: "constants-variables",
+    title: "Constants & Variables",
+    icon: FileText,
+    content: {
+      title: "Constants, Variables, and Data Handling",
+      description: "Learn how RISC-V handles different data types, constants, and variable storage mechanisms.",
+      topics: [
+        "Immediate values and constants",
+        "Register allocation strategies",
+        "Memory layout and data segments",
+        "Stack and heap management",
+        "Data type representations",
+        "Endianness considerations",
+      ],
+      keyPoints: [
+        "Understand immediate value limitations",
+        "Learn efficient constant loading",
+        "Master register usage conventions",
+        "Grasp memory organization principles",
+      ],
+      duration: "45 minutes",
+    },
+  },
+  {
+    id: "all-instructions",
+    title: "All Instructions",
+    icon: Database,
+    content: {
+      title: "Complete RISC-V Instruction Reference",
+      description: "Comprehensive reference of all 82 RISC-V base instructions with examples and use cases.",
+      topics: [
+        "Base integer instructions (RV32I/RV64I)",
+        "Arithmetic operations (ADD, SUB, MUL, DIV)",
+        "Logical operations (AND, OR, XOR, shifts)",
+        "Memory operations (LW, SW, LB, SB)",
+        "Control flow (BEQ, BNE, JAL, JALR)",
+        "System instructions (ECALL, EBREAK)",
+      ],
+      keyPoints: [
+        "Reference all 82 base instructions",
+        "Understand instruction categories",
+        "Learn common instruction patterns",
+        "Practice instruction selection",
+      ],
+      duration: "120 minutes",
+    },
+  },
+  {
+    id: "isa-extensions",
+    title: "ISA Extensions",
+    icon: Zap,
+    content: {
+      title: "RISC-V ISA Extensions",
+      description: "Explore the modular extension system that makes RISC-V flexible and customizable.",
+      topics: [
+        "Standard extensions (M, A, F, D, C)",
+        "Multiplication and division (M extension)",
+        "Atomic operations (A extension)",
+        "Floating-point (F and D extensions)",
+        "Compressed instructions (C extension)",
+        "Custom extension development",
+      ],
+      keyPoints: [
+        "Understand the extension philosophy",
+        "Learn about standard extensions",
+        "See how extensions interact",
+        "Explore custom extension possibilities",
+      ],
+      duration: "75 minutes",
+    },
+  },
+  {
+    id: "soc-integration",
+    title: "SoC Integration",
+    icon: Settings,
+    content: {
+      title: "System-on-Chip Integration",
+      description: "Learn how RISC-V cores integrate into complete system-on-chip designs.",
+      topics: [
+        "SoC architecture overview",
+        "Bus interfaces and protocols",
+        "Memory subsystem integration",
+        "Peripheral interfacing",
+        "Interrupt handling",
+        "Power management considerations",
+      ],
+      keyPoints: [
+        "Understand SoC design principles",
+        "Learn integration challenges",
+        "Master bus protocol basics",
+        "Grasp system-level considerations",
+      ],
+      duration: "60 minutes",
+    },
+  },
+  {
+    id: "hardware-setup",
+    title: "Hardware Setup",
+    icon: Wrench,
+    content: {
+      title: "Hardware Setup and Configuration",
+      description: "Hands-on setup of RISC-V development boards and hardware platforms.",
+      topics: [
+        "Development board overview",
+        "Toolchain installation",
+        "Hardware connections",
+        "JTAG debugging setup",
+        "Serial communication",
+        "Power and reset considerations",
+      ],
+      keyPoints: [
+        "Set up development environment",
+        "Configure hardware connections",
+        "Establish debugging capabilities",
+        "Verify system functionality",
+      ],
+      duration: "45 minutes",
+    },
+  },
+  {
+    id: "development-environment",
+    title: "Development Environment",
+    icon: Cog,
+    content: {
+      title: "RISC-V Development Environment",
+      description: "Complete setup and configuration of the RISC-V software development environment.",
+      topics: [
+        "GNU toolchain installation",
+        "Cross-compilation setup",
+        "Simulator configuration (QEMU, Spike)",
+        "IDE and editor setup",
+        "Debugging tools (GDB, OpenOCD)",
+        "Build system configuration",
+      ],
+      keyPoints: [
+        "Install complete toolchain",
+        "Configure cross-compilation",
+        "Set up simulation environment",
+        "Master debugging workflow",
+      ],
+      duration: "60 minutes",
+    },
+  },
+  {
+    id: "lab-exercises",
+    title: "Lab Exercises",
+    icon: Play,
+    content: {
+      title: "Hands-On Lab Exercises",
+      description: "Practical programming exercises to reinforce RISC-V concepts and skills.",
+      topics: [
+        "Assembly language programming",
+        "Simple arithmetic programs",
+        "Control flow exercises",
+        "Memory manipulation tasks",
+        "Function call conventions",
+        "System call usage",
+      ],
+      keyPoints: [
+        "Practice assembly programming",
+        "Implement common algorithms",
+        "Debug and optimize code",
+        "Understand performance implications",
+      ],
+      duration: "180 minutes",
+    },
+  },
+  {
+    id: "resources",
+    title: "Resources",
+    icon: BookOpen,
+    content: {
+      title: "Additional Resources and References",
+      description: "Comprehensive collection of resources for continued RISC-V learning and development.",
+      topics: [
+        "Official RISC-V specifications",
+        "Online documentation and tutorials",
+        "Community forums and support",
+        "Open-source projects and examples",
+        "Academic papers and research",
+        "Industry case studies",
+      ],
+      keyPoints: [
+        "Access official documentation",
+        "Join the RISC-V community",
+        "Explore open-source projects",
+        "Continue learning journey",
+      ],
+      duration: "Reference material",
+    },
+  },
+]
+
 export default function RISCVWorkshop() {
+  const [activeSection, setActiveSection] = useState<string>("overview")
+
+  const currentSection = workshopSections.find((section) => section.id === activeSection) || workshopSections[0]
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
@@ -27,16 +340,13 @@ export default function RISCVWorkshop() {
             <Cpu className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">RISC-V Workshop</h1>
-              <p className="text-sm text-gray-600">20th International Joint Conference • Naresuan University</p>
+              <p className="text-sm text-gray-600">Interactive Learning Experience</p>
             </div>
-            <Badge variant="secondary" className="ml-auto">
-              June 28 - July 1, 2023
-            </Badge>
           </div>
         </div>
       </header>
 
-      {/* Registration Form Section - Moved to Top */}
+      {/* Registration Form Section */}
       <section className="py-8 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <Card className="shadow-xl border-0 bg-white backdrop-blur">
@@ -67,32 +377,6 @@ export default function RISCVWorkshop() {
         </div>
       </section>
 
-      {/* Hero Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h2 className="text-5xl font-bold text-gray-900 leading-tight">RISC-V Hands-On Workshop</h2>
-              <p className="text-xl text-gray-600">
-                20th International Joint Conference on Computer Science and Software Engineering
-              </p>
-              <p className="text-lg text-gray-500">
-                June 28th - July 1st, 2023 • Naresuan University, Phitsanulok, THAILAND
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <img
-                src="https://sjc.microlink.io/dhrKdIDz-ACUnaDS4D-17prwbzWFRL6Fhewi7sXnLPDvxjCS2x7kqAzkF9hTK-j4mjFbnswhFG6Z7TrQM74AKQ.jpeg"
-                alt="RISC-V Workshop interface showing workshop sections and hands-on activities"
-                className="max-w-full h-auto rounded-lg shadow-lg"
-                width={800}
-                height={500}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Workshop Content */}
       <section className="py-16 px-4 bg-white/50">
         <div className="max-w-7xl mx-auto">
@@ -104,96 +388,81 @@ export default function RISCVWorkshop() {
                   <CardTitle className="text-lg">Workshop Sections</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <BookOpen className="h-4 w-4" />
-                      Overview
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Zap className="h-4 w-4" />
-                      Famous Abstractions
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Cpu className="h-4 w-4" />
-                      RISC-V Fundamentals
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Code className="h-4 w-4" />
-                      Instruction Set
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-4 w-4" />
-                      Constants & Variables
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Database className="h-4 w-4" />
-                      All Instructions
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Zap className="h-4 w-4" />
-                      ISA Extensions
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Settings className="h-4 w-4" />
-                      SoC Integration
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Wrench className="h-4 w-4" />
-                      Hardware Setup
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Code className="h-4 w-4" />
-                      Development Environment
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <Play className="h-4 w-4" />
-                      Lab Exercises
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-between text-left">
-                    <div className="flex items-center gap-2">
-                      <BookOpen className="h-4 w-4" />
-                      Resources
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
+                  {workshopSections.map((section) => {
+                    const IconComponent = section.icon
+                    return (
+                      <Button
+                        key={section.id}
+                        variant={activeSection === section.id ? "default" : "ghost"}
+                        className="w-full justify-between text-left"
+                        onClick={() => setActiveSection(section.id)}
+                      >
+                        <div className="flex items-center gap-2">
+                          <IconComponent className="h-4 w-4" />
+                          {section.title}
+                        </div>
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    )
+                  })}
                 </CardContent>
               </Card>
             </div>
 
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-8">
+              {/* Current Section Content */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <currentSection.icon className="h-6 w-6 text-blue-600" />
+                    <CardTitle className="text-2xl">{currentSection.content.title}</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">{currentSection.content.description}</CardDescription>
+                  {currentSection.content.duration && (
+                    <div className="flex items-center gap-2 mt-3">
+                      <Clock className="h-4 w-4 text-gray-500" />
+                      <Badge variant="outline">{currentSection.content.duration}</Badge>
+                    </div>
+                  )}
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Topics Covered */}
+                  <div>
+                    <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                      <Target className="h-5 w-5 text-green-600" />
+                      Topics Covered
+                    </h4>
+                    <ul className="space-y-2">
+                      {currentSection.content.topics.map((topic, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-700">{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Key Learning Points */}
+                  {currentSection.content.keyPoints && (
+                    <div>
+                      <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                        <Lightbulb className="h-5 w-5 text-yellow-600" />
+                        Key Learning Points
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {currentSection.content.keyPoints.map((point, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+                            <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-gray-700 text-sm">{point}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
               {/* Instructors */}
               <Card>
                 <CardHeader>
@@ -206,81 +475,6 @@ export default function RISCVWorkshop() {
                   <p className="text-gray-600">Naruemon Rattanakunkorn & Paul Sherman</p>
                 </CardContent>
               </Card>
-
-              {/* Workshop Agenda */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Workshop Agenda</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <span>Thinking General</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span>What is RISC-V?</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                      <span>Grammar, Constants, Variables, and Operations</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <span>Code and Lab Etiquette</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <span>Wiring, Assembling, Compiling, Linking, Loading, Running, and Looking</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
-                      <span>Six Tables, Six RISC-V ISA Extensions, and have some fun</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-pink-500 rounded-full"></div>
-                      <span>Review and Wrap-up</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Statistics Cards */}
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle className="text-lg">82 Instructions</CardTitle>
-                    <CardDescription>Complete ISA coverage</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-4xl font-bold text-blue-600 mb-2">82</div>
-                    <p className="text-sm text-gray-600">No more instructions than you'll ever need</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle className="text-lg">32 Registers</CardTitle>
-                    <CardDescription>General purpose registers</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-4xl font-bold text-green-600 mb-2">32</div>
-                    <p className="text-sm text-gray-600">More registers than you'll ever need (less one)</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle className="text-lg">6 Formats</CardTitle>
-                    <CardDescription>Instruction formats</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-4xl font-bold text-purple-600 mb-2">6</div>
-                    <p className="text-sm text-gray-600">All ~82 instructions can be made with these six forms</p>
-                  </CardContent>
-                </Card>
-              </div>
             </div>
           </div>
         </div>

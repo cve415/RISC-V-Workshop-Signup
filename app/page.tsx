@@ -1,9 +1,21 @@
-"use client";
-
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Users, BookOpen, Code, Zap, Phone } from "lucide-react";
+"use client"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import {
+  Cpu,
+  Users,
+  BookOpen,
+  Code,
+  Zap,
+  Phone,
+  ChevronRight,
+  Play,
+  Settings,
+  Wrench,
+  Database,
+  FileText,
+} from "lucide-react"
 
 export default function RISCVWorkshop() {
   return (
@@ -13,15 +25,18 @@ export default function RISCVWorkshop() {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <Cpu className="h-8 w-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">RISC-V Workshop</h1>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">RISC-V Workshop</h1>
+              <p className="text-sm text-gray-600">20th International Joint Conference • Naresuan University</p>
+            </div>
             <Badge variant="secondary" className="ml-auto">
-              Free Event
+              June 28 - July 1, 2023
             </Badge>
           </div>
         </div>
       </header>
 
-      {/* Registration Form Section */}
+      {/* Registration Form Section - Moved to Top */}
       <section className="py-8 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <Card className="shadow-xl border-0 bg-white backdrop-blur">
@@ -52,52 +67,222 @@ export default function RISCVWorkshop() {
         </div>
       </section>
 
+      {/* Hero Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h2 className="text-5xl font-bold text-gray-900 leading-tight">RISC-V Hands-On Workshop</h2>
+              <p className="text-xl text-gray-600">
+                20th International Joint Conference on Computer Science and Software Engineering
+              </p>
+              <p className="text-lg text-gray-500">
+                June 28th - July 1st, 2023 • Naresuan University, Phitsanulok, THAILAND
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <img
+                src="https://sjc.microlink.io/dhrKdIDz-ACUnaDS4D-17prwbzWFRL6Fhewi7sXnLPDvxjCS2x7kqAzkF9hTK-j4mjFbnswhFG6Z7TrQM74AKQ.jpeg"
+                alt="RISC-V Workshop interface showing workshop sections and hands-on activities"
+                className="max-w-full h-auto rounded-lg shadow-lg"
+                width={800}
+                height={500}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Workshop Content */}
-      <section className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">RISC-V Workshop Content</h3>
-          <p className="text-lg text-gray-600 mb-8">Comprehensive learning modules and hands-on exercises</p>
+      <section className="py-16 px-4 bg-white/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Sidebar Navigation */}
+            <div className="lg:col-span-1">
+              <Card className="sticky top-4">
+                <CardHeader>
+                  <CardTitle className="text-lg">Workshop Sections</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="h-4 w-4" />
+                      Overview
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Zap className="h-4 w-4" />
+                      Famous Abstractions
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Cpu className="h-4 w-4" />
+                      RISC-V Fundamentals
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Code className="h-4 w-4" />
+                      Instruction Set
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4" />
+                      Constants & Variables
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Database className="h-4 w-4" />
+                      All Instructions
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Zap className="h-4 w-4" />
+                      ISA Extensions
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Settings className="h-4 w-4" />
+                      SoC Integration
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Wrench className="h-4 w-4" />
+                      Hardware Setup
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Code className="h-4 w-4" />
+                      Development Environment
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <Play className="h-4 w-4" />
+                      Lab Exercises
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-between text-left">
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="h-4 w-4" />
+                      Resources
+                    </div>
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
 
-          <Tabs defaultValue="fundamentals" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
-              <TabsTrigger value="fundamentals" className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4" />
-                Fundamentals
-              </TabsTrigger>
-              <TabsTrigger value="programming" className="flex items-center gap-2">
-                <Code className="h-4 w-4" />
-                Programming
-              </TabsTrigger>
-              <TabsTrigger value="implementation" className="flex items-center gap-2">
-                <Cpu className="h-4 w-4" />
-                Implementation
-              </TabsTrigger>
-              <TabsTrigger value="advanced" className="flex items-center gap-2">
-                <Zap className="h-4 w-4" />
-                Advanced
-              </TabsTrigger>
-            </TabsList>
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* Instructors */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-blue-600" />
+                    Instructors
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">Naruemon Rattanakunkorn & Paul Sherman</p>
+                </CardContent>
+              </Card>
 
-            {/* Fundamentals Tab */}
-            <TabsContent value="fundamentals">
-              {/* Include your fundamentals content here */}
-            </TabsContent>
+              {/* Workshop Agenda */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Workshop Agenda</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                      <span>Thinking General</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span>What is RISC-V?</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                      <span>Grammar, Constants, Variables, and Operations</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span>Code and Lab Etiquette</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <span>Wiring, Assembling, Compiling, Linking, Loading, Running, and Looking</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
+                      <span>Six Tables, Six RISC-V ISA Extensions, and have some fun</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-pink-500 rounded-full"></div>
+                      <span>Review and Wrap-up</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-            {/* Programming Tab */}
-            <TabsContent value="programming">
-              {/* Include your programming content here */}
-            </TabsContent>
+              {/* Statistics Cards */}
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle className="text-lg">82 Instructions</CardTitle>
+                    <CardDescription>Complete ISA coverage</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-blue-600 mb-2">82</div>
+                    <p className="text-sm text-gray-600">No more instructions than you'll ever need</p>
+                  </CardContent>
+                </Card>
 
-            {/* Implementation Tab */}
-            <TabsContent value="implementation">
-              {/* Include your implementation content here */}
-            </TabsContent>
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle className="text-lg">32 Registers</CardTitle>
+                    <CardDescription>General purpose registers</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-green-600 mb-2">32</div>
+                    <p className="text-sm text-gray-600">More registers than you'll ever need (less one)</p>
+                  </CardContent>
+                </Card>
 
-            {/* Advanced Tab */}
-            <TabsContent value="advanced">
-              {/* Include your advanced content here */}
-            </TabsContent>
-          </Tabs>
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle className="text-lg">6 Formats</CardTitle>
+                    <CardDescription>Instruction formats</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-purple-600 mb-2">6</div>
+                    <p className="text-sm text-gray-600">All ~82 instructions can be made with these six forms</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -146,5 +331,5 @@ export default function RISCVWorkshop() {
         </div>
       </footer>
     </div>
-  );
+  )
 }

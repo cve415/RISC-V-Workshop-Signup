@@ -14,7 +14,7 @@ async function testEmail() {
 
   // Test email content
   const testEmail = {
-    from: process.env.SMTP_FROM || "RISC-V Workshop <test@example.com>",
+    from: process.env.SMTP_FROM || "RISC-V Workshop <people@cvesourcing.com>",
     to: "your-test-email@gmail.com", // Replace with your email
     subject: "✅ Email Configuration Test",
     html: `

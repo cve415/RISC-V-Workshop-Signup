@@ -6,43 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Cpu, Users, BookOpen, Code, Zap, Phone } from "lucide-react"
 
 export default function RISCVWorkshop() {
-  const workshopContent = {
-    overview: {
-      title: "Workshop Overview",
-      description: "Learn the fundamentals of RISC-V architecture and implementation",
-      topics: [
-        "Introduction to RISC-V ISA",
-        "Processor Design Principles",
-        "Assembly Programming",
-        "Hardware Implementation",
-        "Performance Optimization",
-        "Debugging Techniques",
-      ],
-    },
-    prerequisites: {
-      title: "Prerequisites",
-      requirements: [
-        "Basic understanding of computer architecture",
-        "Familiarity with assembly language concepts",
-        "Programming experience (any language)",
-        "Laptop with development environment",
-        "Basic knowledge of digital logic",
-        "Understanding of CPU instruction cycles",
-      ],
-    },
-    materials: {
-      title: "What You'll Get",
-      items: [
-        "Comprehensive workshop materials and slides",
-        "Hands-on lab exercises and solutions",
-        "RISC-V development tools and simulators",
-        "Reference guides and documentation",
-        "Access to online resources and community",
-        "Certificate of completion",
-      ],
-    },
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
@@ -96,6 +59,8 @@ export default function RISCVWorkshop() {
             <div className="space-y-6">
               <h2 className="text-5xl font-bold text-gray-900 leading-tight">Introduction to RISC-V Architecture</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Join our comprehensive workshop to learn the fundamentals of RISC-V processor design, assembly
+                programming, and hardware implementation.
               </p>
             </div>
 
@@ -116,7 +81,11 @@ export default function RISCVWorkshop() {
 
             {/* Hero Image */}
             <div className="mt-12">
-            
+              <img
+                src="/placeholder.svg?height=400&width=800&text=RISC-V+Architecture+Workshop"
+                alt="RISC-V Architecture Diagram"
+                className="w-full max-w-4xl mx-auto h-96 object-cover rounded-xl shadow-2xl"
+              />
             </div>
           </div>
         </div>
@@ -430,51 +399,6 @@ export default function RISCVWorkshop() {
               </div>
             </TabsContent>
           </Tabs>
-
-          {/* Hands-on Labs Section */}
-          <div className="mt-16">
-            <h4 className="text-2xl font-bold text-gray-900 mb-8 text-center">Hands-on Laboratory Exercises</h4>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="border-l-4 border-l-blue-500">
-                <CardHeader>
-                  <CardTitle className="text-lg">Lab 1: Basic Assembly</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-4">Write and execute your first RISC-V assembly programs</p>
-                  <div className="flex items-center gap-2 text-sm text-blue-600">
-                    <Code className="h-4 w-4" />
-                    <span>Duration: 45 minutes</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-green-500">
-                <CardHeader>
-                  <CardTitle className="text-lg">Lab 2: Processor Design</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-4">Implement a simple RISC-V processor in Verilog</p>
-                  <div className="flex items-center gap-2 text-sm text-green-600">
-                    <Cpu className="h-4 w-4" />
-                    <span>Duration: 90 minutes</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-purple-500">
-                <CardHeader>
-                  <CardTitle className="text-lg">Lab 3: Performance Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-4">Analyze and optimize RISC-V code performance</p>
-                  <div className="flex items-center gap-2 text-sm text-purple-600">
-                    <Zap className="h-4 w-4" />
-                    <span>Duration: 60 minutes</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
         </div>
       </section>
 

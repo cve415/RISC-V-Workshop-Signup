@@ -59,25 +59,10 @@ export default function RISCVWorkshop() {
             <div className="space-y-6">
               <h2 className="text-5xl font-bold text-gray-900 leading-tight">Introduction to RISC-V Architecture</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Join our comprehensive workshop to learn the fundamentals of RISC-V processor design, assembly
-                programming, and hardware implementation.
+                
               </p>
             </div>
 
-            <div className="flex items-center justify-center gap-8 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                <span>50+ Attendees</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                <span>Hands-on Labs</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="h-5 w-5" />
-                <span>Expert Instructors</span>
-              </div>
-            </div>
 
             {/* Hero Image */}
             <div className="mt-12">

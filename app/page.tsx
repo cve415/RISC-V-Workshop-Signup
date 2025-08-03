@@ -58,19 +58,7 @@ export default function RISCVWorkshop() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h2 className="text-5xl font-bold text-gray-900 leading-tight">Introduction to RISC-V Architecture</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                
-              </p>
-            </div>
-
-
-            {/* Hero Image */}
-            <div className="mt-12">
-              <img
-                src="/placeholder.svg?height=400&width=800&text=RISC-V+Architecture+Workshop"
-                alt="RISC-V Architecture Diagram"
-                className="w-full max-w-4xl mx-auto h-96 object-cover rounded-xl shadow-2xl"
-              />
+              <p className="text-xl text-gray-600">Master the fundamentals of open-source processor design</p>
             </div>
           </div>
         </div>

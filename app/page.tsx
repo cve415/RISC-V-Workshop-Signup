@@ -28,9 +28,9 @@ export default function RISCVWorkshop() {
             <CardHeader className="text-center">
               <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
                 <Cpu className="h-6 w-6" />
-                Register Now
+                San Francisco, CA
               </CardTitle>
-              <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
+          
             </CardHeader>
             <CardContent>
               <div className="w-full overflow-hidden rounded-lg">
@@ -54,7 +54,23 @@ export default function RISCVWorkshop() {
 
       {/* Hero Section - Simplified */}
       <section className="py-16 px-4">
-   
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h2 className="text-5xl font-bold text-gray-900 leading-tight">Introduction to RISC-V Architecture</h2>
+              <p className="text-xl text-gray-600">Master the fundamentals of open-source processor design</p>
+            </div>
+            <div className="flex justify-center">
+              <img
+                src="/risc-v-architecture.png"
+                alt="RISC-V processor architecture diagram showing pipeline stages and instruction set"
+                className="max-w-full h-auto rounded-lg shadow-lg"
+                width={600}
+                height={400}
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Workshop Content */}

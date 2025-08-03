@@ -472,7 +472,7 @@ export default function RISCVWorkshop() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">Naruemon Rattanakunkorn & Paul Sherman</p>
+                  <p className="text-gray-600">Paul Sherman</p>
                 </CardContent>
               </Card>
             </div>

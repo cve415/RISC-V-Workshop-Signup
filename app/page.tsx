@@ -350,13 +350,6 @@ export default function RISCVWorkshop() {
       <section className="py-8 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <Card className="shadow-xl border-0 bg-white backdrop-blur">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl text-gray-900 flex items-center justify-center gap-2">
-                <Cpu className="h-6 w-6" />
-                Register Now
-              </CardTitle>
-              <CardDescription>Secure your spot in this exclusive RISC-V workshop</CardDescription>
-            </CardHeader>
             <CardContent>
               <div className="w-full overflow-hidden rounded-lg">
                 <iframe

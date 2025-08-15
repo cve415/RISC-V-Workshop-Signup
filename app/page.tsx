@@ -353,16 +353,16 @@ export default function RISCVWorkshop() {
             <CardContent>
               <div className="w-full overflow-hidden rounded-lg">
                 <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSdsXz-d54ULv54d0GBzSv2zg_SCp7I-wPGTgZe24O8TVGvb8A/viewform?embedded=true"
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSe_EGmWr1YOUUdg87joPzOjig-vmC7iRriP8bkb0_XRXCRWSg/viewform?embedded=true"
                   width="100%"
-                  height="2084"
+                  height="5631"
                   frameBorder="0"
                   marginHeight="0"
                   marginWidth="0"
                   className="w-full"
                   title="RISC-V Workshop Registration Form"
                 >
-                  Loading registration form...
+                  Loading…
                 </iframe>
               </div>
             </CardContent>

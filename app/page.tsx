@@ -42,6 +42,8 @@ export default function RISCVWorkshop() {
         </div>
       </section>
 
+   RISC-V Tech Hub: https://tech.riscv.org/
+
       {/* Contact Section */}
       <section className="py-12 px-4 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto text-center">

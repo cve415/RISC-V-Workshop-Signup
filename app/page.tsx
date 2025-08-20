@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
-import { Cpu, Phone } from "lucide-react"
+import { Cpu, Phone, ExternalLink } from "lucide-react"
 
 export default function RISCVWorkshop() {
   return (
@@ -42,7 +42,28 @@ export default function RISCVWorkshop() {
         </div>
       </section>
 
-   RISC-V Tech Hub: https://tech.riscv.org/
+      {/* RISC-V Tech Hub Link */}
+      <section className="py-8 px-4 bg-white/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <Card className="bg-blue-50 border-blue-200">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Cpu className="h-5 w-5 text-blue-600" />
+                <h3 className="text-lg font-semibold text-blue-900">Explore More Resources</h3>
+              </div>
+              <a
+                href="https://tech.riscv.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              >
+                RISC-V Tech Hub
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
       {/* Contact Section */}
       <section className="py-12 px-4 bg-gray-900 text-white">

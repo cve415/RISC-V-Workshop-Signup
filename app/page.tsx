@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
-import { Cpu, Phone, ExternalLink } from "lucide-react"
+import { Cpu, ExternalLink, Linkedin } from "lucide-react"
 
 export default function RISCVWorkshop() {
   return (
@@ -12,7 +12,7 @@ export default function RISCVWorkshop() {
             <Cpu className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">RISC-V Workshop</h1>
-              <p className="text-sm text-gray-600">Interactive Learning Experience</p>
+              <p className="text-sm text-gray-600">Survey>>></p>
             </div>
           </div>
         </div>
@@ -73,12 +73,18 @@ export default function RISCVWorkshop() {
             <Card className="bg-gray-800 border-gray-700">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <Phone className="h-5 w-5 text-green-400" />
+                  <Linkedin className="h-5 w-5 text-blue-400" />
                   <h4 className="text-lg font-semibold text-white">Christopher Velasco</h4>
                 </div>
                 <p className="text-gray-300 mb-3">Community Support</p>
-                <a href="tel:+14156448565" className="text-green-400 hover:text-green-300 font-mono text-lg">
-                  (415) 644-8565
+                <a
+                  href="https://www.linkedin.com/in/christopherfvelasco/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                >
+                  Connect on LinkedIn
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               </CardContent>
             </Card>
